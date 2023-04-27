@@ -1,0 +1,85 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    bind_address: 0.0.0.0:9191
+    gpio: /sys/class/gpio/
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Domain/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    # Domain
+    App\Domain\ValvesInterface: '@App\Infrastructure\Hardware\HardwareValves'
+    App\Domain\PumpInterface: '@App\Infrastructure\Hardware\HardwarePump'
+
+    App\Domain\Configuration\DriverConfig:
+        class: App\Domain\Configuration\DriverConfig
+        arguments:
+            $pumpIdentifier: '%env(PUMP_IDENTIFIER)%'
+            $valveIdentifiers: '%env(VALVE_IDENTIFIERS)%'
+
+
+    App\Domain\Service\ValvesControlling:
+        class: App\Domain\Service\ValvesControlling
+        arguments:
+            $valves: '@App\Domain\ValvesInterface'
+            $config: '@App\Domain\Configuration\DriverConfig'
+
+    App\Domain\Service\Initializer:
+        class: App\Domain\Service\Initializer
+        arguments:
+            $valves: '@App\Domain\ValvesInterface'
+            $pump: '@App\Domain\PumpInterface'
+            $config: '@App\Domain\Configuration\DriverConfig'
+
+
+    # Infrastructure
+    App\Infrastructure\Config\GpioConfig:
+        class: App\Infrastructure\Config\GpioConfig
+        arguments:
+            $path: '%gpio%'
+
+    App\Infrastructure\Websocket\InitializationRunner:
+        class: App\Infrastructure\Websocket\InitializationRunner
+        arguments:
+            $loop: '@React\EventLoop\LoopInterface'
+
+
+    React\EventLoop\LoopInterface:
+        factory: ['React\EventLoop\Loop', 'get']
+
+    Ratchet\WebSocket\WsServer:
+        class: Ratchet\WebSocket\WsServer
+        arguments: [ '@App\Infrastructure\Websocket\RatchetServer' ]
+
+    Ratchet\Http\HttpServer:
+        class: 'Ratchet\Http\HttpServer'
+        arguments: ['@Ratchet\WebSocket\WsServer']
+
+    React\Socket\SocketServer:
+        class: React\Socket\SocketServer
+        arguments:
+            $uri: '%bind_address%'
+            $loop: '@React\EventLoop\LoopInterface'
+
+    Ratchet\Server\IoServer:
+        public: true
+        class: 'Ratchet\Server\IoServer'
+        arguments: ['@Ratchet\Http\HttpServer', '@React\Socket\SocketServer', '@React\EventLoop\LoopInterface']
