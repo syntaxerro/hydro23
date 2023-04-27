@@ -1,0 +1,30 @@
+framework:
+    messenger:
+        buses:
+            messenger.bus.default:
+                default_middleware:
+                    allow_no_handlers: true
+
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async: 'loop://'
+            sync: 'sync://'
+            websocket: 'ratchet://'
+
+        routing:
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async
+            App\Domain\Messages\CommandInterface: async
+            App\Domain\Messages\QueryInterface: sync
+            App\Domain\Messages\EventInterface: sync
+            App\Domain\Messages\WebsocketEventInterface: websocket
+
+when@test:
+    framework:
+        messenger:
+            transports:
+                async: test://
+                sync: test://

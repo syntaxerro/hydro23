@@ -1,0 +1,20 @@
+parameters:
+  gpio: '%kernel.project_dir%/tests/Doubles/gpio/'
+services:
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\Tests\:
+    resource: '../tests/'
+
+  # Domain
+  App\Domain\ValvesInterface: '@App\Tests\Doubles\ValvesInMemory'
+  App\Domain\PumpInterface: '@App\Tests\Doubles\PumpInMemory'
+
+  # Infrastructure
+  App\Infrastructure\Hardware\GPIO:
+    public: true
+    class: App\Infrastructure\Hardware\GPIO
+    arguments:
+      $runner: '@App\Infrastructure\Hardware\ProcessRunner'
+      $config: '@App\Infrastructure\Config\GpioConfig'

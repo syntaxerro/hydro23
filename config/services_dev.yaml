@@ -1,0 +1,2 @@
+parameters:
+  gpio: '%kernel.project_dir%/tests/Doubles/gpio/'
