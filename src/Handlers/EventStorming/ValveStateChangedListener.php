@@ -2,7 +2,7 @@
 
 namespace App\Handlers\EventStorming;
 
-use App\Domain\Command\DisablePumpCommand;
+use App\Domain\Command\Pump\DisablePumpCommand;
 use App\Domain\Event\ValveStateChangedEvent;
 use App\Domain\PumpInterface;
 use App\Domain\Service\ValvesControlling;

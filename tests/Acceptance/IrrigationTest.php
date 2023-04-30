@@ -14,6 +14,7 @@ class IrrigationTest extends AcceptanceTestCase
     {
         // given
         $allValves = [1,2,3,4];
+        $this->giveIrrigationLines($allValves);
         $this->turnTheValves($allValves, ValveStateMother::on);
         $this->sendToWebsocket(
             new WebsocketIncomingMessage(CommandsMother::EnablePump)
@@ -35,6 +36,7 @@ class IrrigationTest extends AcceptanceTestCase
     {
         // given
         $allValves = [1,2,3,4];
+        $this->giveIrrigationLines($allValves);
         $this->turnTheValves($allValves, ValveStateMother::on);
         $this->sendToWebsocket(
             new WebsocketIncomingMessage(CommandsMother::EnablePump)
@@ -53,6 +55,7 @@ class IrrigationTest extends AcceptanceTestCase
     {
         // given
         $allValves = [1,2,3,4];
+        $this->giveIrrigationLines($allValves);
         $this->turnTheValves($allValves, ValveStateMother::off);
 
         // when
@@ -62,6 +65,16 @@ class IrrigationTest extends AcceptanceTestCase
 
         // then
         $this->assertPumpingStopped();
+    }
+
+    private function giveIrrigationLines(array $valvesIdentifiers): void
+    {
+        foreach ($valvesIdentifiers as $identifier) {
+            $this->sendToWebsocket(new WebsocketIncomingMessage(CommandsMother::SetIrrigationLine, [
+                'name' => 'line ' . $identifier,
+                'identifier' => $identifier
+            ]));
+        }
     }
 
     private function turnTheValves(array $valvesIdentifiers, bool $valveOpen): void

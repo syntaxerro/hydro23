@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Unit\Application;
+namespace App\Tests\Unit\Commands;
 
-use App\Domain\Command\EnablePumpCommand;
+use App\Domain\Command\Pump\EnablePumpCommand;
 use App\Domain\Command\PushEmergencyButtonCommand;
 use App\Domain\Command\TurnTheValveCommand;
 use App\Domain\Event\PumpDisabledEvent;
@@ -28,9 +28,10 @@ class PushEmergencyButtonCommandTest extends UnitTestCase
 
     private function openAllValves(): void
     {
-        $this->dispatchMessage(new TurnTheValveCommand(1, true));
-        $this->dispatchMessage(new TurnTheValveCommand(2, true));
-        $this->dispatchMessage(new TurnTheValveCommand(3, true));
-        $this->dispatchMessage(new TurnTheValveCommand(4, true));
+        $givenIdentifiers = [1,2,3,4];
+        $this->giveIrrigationLines($givenIdentifiers);
+        foreach ($givenIdentifiers as $identifier) {
+            $this->dispatchMessage(new TurnTheValveCommand($identifier, true));
+        }
     }
 }

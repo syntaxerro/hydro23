@@ -2,6 +2,8 @@
 
 namespace App\Tests\Common;
 
+use App\Domain\Command\IrrigationLine\SetIrrigationLineCommand;
+use App\Domain\Entity\IrrigationLine;
 use App\Domain\Messages\CommandInterface;
 use App\Domain\Messages\EventInterface;
 use App\Domain\Messages\QueryInterface;
@@ -25,6 +27,11 @@ abstract class UnitTestCase extends KernelTestCase
         self::bootKernel();
         $this->container = self::getContainer();
         $this->messageBus = $this->container->get(MessageBusInterface::class);
+        $this->initIrrigationSystem();
+    }
+
+    private function initIrrigationSystem(): void
+    {
         $this->container->get(Initializer::class)->initValves();
         $this->container->get(Initializer::class)->initPump();
     }
@@ -34,5 +41,13 @@ abstract class UnitTestCase extends KernelTestCase
         $this->messageBus->dispatch($message);
         $this->transport('async')->process();
         $this->transport('sync')->process();
+    }
+
+    protected function giveIrrigationLines(array $identifiers): void
+    {
+        foreach ($identifiers as $identifier) {
+            $this->dispatchMessage(new SetIrrigationLineCommand('line ' . $identifier, $identifier));
+        }
+        $this->initIrrigationSystem();
     }
 }

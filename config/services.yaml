@@ -29,26 +29,19 @@ services:
     App\Domain\ValvesInterface: '@App\Infrastructure\Hardware\HardwareValves'
     App\Domain\PumpInterface: '@App\Infrastructure\Hardware\HardwarePump'
 
-    App\Domain\Configuration\DriverConfig:
-        class: App\Domain\Configuration\DriverConfig
-        arguments:
-            $pumpIdentifier: '%env(PUMP_IDENTIFIER)%'
-            $valveIdentifiers: '%env(VALVE_IDENTIFIERS)%'
-
-
     App\Domain\Service\ValvesControlling:
         class: App\Domain\Service\ValvesControlling
         arguments:
             $valves: '@App\Domain\ValvesInterface'
-            $config: '@App\Domain\Configuration\DriverConfig'
+            $irrigationLineRepository: '@App\Domain\Repository\IrrigationLineRepositoryInterface'
 
     App\Domain\Service\Initializer:
         class: App\Domain\Service\Initializer
         arguments:
             $valves: '@App\Domain\ValvesInterface'
+            $irrigationLineRepository: '@App\Domain\Repository\IrrigationLineRepositoryInterface'
             $pump: '@App\Domain\PumpInterface'
-            $config: '@App\Domain\Configuration\DriverConfig'
-
+            $pumpGpioChannel: '%env(PUMP_GPIO_CHANNEL)%'
 
     # Infrastructure
     App\Infrastructure\Config\GpioConfig:

@@ -11,6 +11,9 @@ services:
   App\Domain\ValvesInterface: '@App\Tests\Doubles\ValvesInMemory'
   App\Domain\PumpInterface: '@App\Tests\Doubles\PumpInMemory'
 
+  # Repositories replacement
+  App\Domain\Repository\IrrigationLineRepositoryInterface: '@App\Tests\Doubles\Repository\IrrigationLineInMemoryRepository'
+
   # Infrastructure
   App\Infrastructure\Hardware\GPIO:
     public: true
@@ -18,3 +21,8 @@ services:
     arguments:
       $runner: '@App\Infrastructure\Hardware\ProcessRunner'
       $config: '@App\Infrastructure\Config\GpioConfig'
+
+  # Infrastructure repositories
+  App\Infrastructure\Repository\IrrigationLineJsonFileRepository:
+    public: true
+    class: App\Infrastructure\Repository\IrrigationLineJsonFileRepository

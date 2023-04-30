@@ -19,7 +19,9 @@ abstract class AcceptanceTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->websocketClient = new Client('ws://localhost:9191');
+        $this->websocketClient = new Client('ws://localhost:9191', [
+            'timeout' => 1
+        ]);
         $this->receivedMessageViaWebsocket = [];
     }
 

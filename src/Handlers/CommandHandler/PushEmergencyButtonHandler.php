@@ -2,7 +2,7 @@
 
 namespace App\Handlers\CommandHandler;
 
-use App\Domain\Command\DisablePumpCommand;
+use App\Domain\Command\Pump\DisablePumpCommand;
 use App\Domain\Command\PushEmergencyButtonCommand;
 use App\Domain\Command\TurnTheValveCommand;
 use App\Domain\Service\ValvesControlling;

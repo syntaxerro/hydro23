@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Automated irrigation controller</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/ui/styles.css"/>
+    <link rel="stylesheet" href="/ui/lib/fontawesome.css"/>
+</head>
+
+<body>
+    <div class="menu">
+        <input checked="" class="menu_input" id="btn1" name="menu" type="radio"/>
+        <label class="menu_label" for="btn1">
+            <div class="fa fa-calendar"></div>
+            <div class="menu_text">
+                30.04
+            </div>
+        </label>
+        <input class="menu_input" id="btn2" name="menu" type="radio"/>
+        <label class="menu_label" for="btn2">
+            <div class="fa fa-clock"></div>
+            <div class="menu_text">
+                11:25
+            </div>
+        </label>
+        <input class="menu_input" id="btn3" name="menu" type="radio"/>
+        <label class="menu_label" for="btn3">
+            <div class="fa fa-cog"></div>
+            <div class="menu_text">
+                LINIE
+            </div>
+        </label>
+    </div>
+
+    <div style="margin-top: 1em" class="irrigation-lines"></div>
+
+</body>
+<script src="/ui/irrigationlines.js"></script>
+</html>

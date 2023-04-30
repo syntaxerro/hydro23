@@ -2,21 +2,22 @@
 
 namespace App\Domain\Service;
 
-use App\Domain\Configuration\DriverConfig;
+use App\Domain\Repository\IrrigationLineRepositoryInterface;
 use App\Domain\ValvesInterface;
 
 class ValvesControlling
 {
     public function __construct(
         private readonly ValvesInterface $valves,
-        private readonly DriverConfig $config
+        private readonly IrrigationLineRepositoryInterface $irrigationLineRepository
     ) {
     }
 
     public function getAllValves(): array
     {
         $result = [];
-        foreach ($this->config->getValveIdentifiers() as $identifier) {
+        foreach ($this->irrigationLineRepository->findAll() as $irrigationLine) {
+            $identifier = $irrigationLine->getIdentifier();
             $result[$identifier] = $this->valves->readValveState($identifier);
         }
         return $result;
