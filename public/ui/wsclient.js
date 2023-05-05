@@ -11,60 +11,15 @@ let interval = setInterval(function() {
 
         let socket = new WebSocket(location.href.replace('http', 'ws').replace(':4343', ':9191').slice(0, -1));
         socket.onopen = function (event) {
-            showInConsole('> Podłączono do serwera WS');
+            showInConsole('* Connected to WS server *');
             changeConnectionStatusIcon('fa-solid fa-plug-circle-check');
             socket.onmessage = function(msg) {
                 let message = JSON.parse(msg.data);
                 showInConsole('< ' + msg.data);
-
-                switch (message.eventName) {
-                    case 'App\\Domain\\Event\\ValveStateChangedEvent':
-                        changeValveStatusOnDisplay(message.event.identifier, message.event.state);
-                        break;
-                    case 'App\\Domain\\Event\\PumpEnabledEvent':
-                        changePumpStatusOnDisplay(true);
-                        break;
-                    case 'App\\Domain\\Event\\PumpDisabledEvent':
-                        changePumpStatusOnDisplay(false);
-                        break;
-                    case 'App\\Domain\\Event\\IrrigationLinesReconfiguredEvent':
-                        showInConsole('! Reconfigured irrigation lines: restarting in next 2 seconds... !');
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
-                }
+                handleEvent(message.eventName, message.event);
             };
-
-            document.querySelector('.pump-button').onclick = function() {
-                let state = this.dataset.state !== 'enabled';
-                if (state) {
-                    sendToWebsocket({
-                        'command': 'Pump\\EnablePumpCommand',
-                        'arguments': {}
-                    });
-                } else {
-                    sendToWebsocket({
-                        'command': 'Pump\\DisablePumpCommand',
-                        'arguments': {}
-                    });
-                }
-            };
-
-            let irrigationButtons = document.querySelectorAll('.irrigation-line-valve-button');
-            for (let button of irrigationButtons) {
-                button.onclick = function() {
-                    this.className += ' btn-bubble-animating';
-                    let identifier = this.dataset.id;
-                    let state = this.dataset.state !== 'enabled';
-                    sendToWebsocket({
-                        'command': 'TurnTheValveCommand',
-                        'arguments': {
-                            'identifier': identifier,
-                            'state': state
-                        }
-                    });
-                };
-            }
+            initPumpButton();
+            initIrrigationLinesButtons();
         };
 
         registerWebsocketErrorHandlers(socket);
@@ -103,12 +58,12 @@ function registerWebsocketErrorHandlers(socket) {
             reason = "The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).";
         else
             reason = "Unknown reason";
-        showInConsole('! Wystąpił błąd: '+reason+' !');
+        showInConsole('! CONNECTION ERROR: '+reason+' !');
         changeConnectionStatusIcon('fa fa-plug-circle-xmark')
     };
 
     socket.onerror = function() {
-        showInConsole('! Wystąpił błąd: Nie udało się nawiązać połączenia z WS !');
+        showInConsole('! CONNECTION CRITICAL ERROR !');
         changeConnectionStatusIcon('fa fa-plug-circle-xmark')
     };
 }

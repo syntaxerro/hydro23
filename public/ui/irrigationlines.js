@@ -19,11 +19,11 @@ fetch(location.href.replace('/ui', '/index.php/irrigation-lines'))
                     changeValveStatusOnDisplay(line.identifier, state)
                 });
         }
-        initIrrigationLinesTable(json);
+        renderIrrigationLinesConfigurationTable(json);
         configuredIrrigationLines = true;
     });
 
-function initIrrigationLinesTable(json) {
+function renderIrrigationLinesConfigurationTable(json) {
     let tbody = document.querySelector('.lines-configurator table tbody');
     for (let line of json) {
         let idInput = '<input class="irrigation-line-id" value="'+line.identifier+'" readonly/>';

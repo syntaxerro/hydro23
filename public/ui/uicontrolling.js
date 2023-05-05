@@ -32,3 +32,38 @@ function showInConsole(line) {
 function changeConnectionStatusIcon(statusIcon) {
     document.querySelector('.status-icon').innerHTML = '<i class="' + statusIcon +'"></i>';
 }
+
+function initPumpButton() {
+    document.querySelector('.pump-button').onclick = function() {
+        let state = this.dataset.state !== 'enabled';
+        if (state) {
+            sendToWebsocket({
+                'command': 'Pump\\EnablePumpCommand',
+                'arguments': {}
+            });
+        } else {
+            sendToWebsocket({
+                'command': 'Pump\\DisablePumpCommand',
+                'arguments': {}
+            });
+        }
+    };
+}
+
+function initIrrigationLinesButtons() {
+    let irrigationButtons = document.querySelectorAll('.irrigation-line-valve-button');
+    for (let button of irrigationButtons) {
+        button.onclick = function() {
+            this.className += ' btn-bubble-animating';
+            let identifier = this.dataset.id;
+            let state = this.dataset.state !== 'enabled';
+            sendToWebsocket({
+                'command': 'TurnTheValveCommand',
+                'arguments': {
+                    'identifier': identifier,
+                    'state': state
+                }
+            });
+        };
+    }
+}
