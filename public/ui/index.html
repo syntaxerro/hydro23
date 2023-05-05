@@ -4,7 +4,9 @@
     <title>Automated irrigation controller</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="/ui/styles.css"/>
-    <link rel="stylesheet" href="/ui/lib/fontawesome.css"/>
+    <link rel="stylesheet" href="/ui/lib/fontawesome/css/all.min.css"/>
+    <link rel="stylesheet" href="/ui/lib/fontawesome/css/regular.min.css"/>
+    <link rel="stylesheet" href="/ui/lib/fontawesome/css/solid.min.css"/>
 </head>
 
 <body>
@@ -13,27 +15,58 @@
         <label class="menu_label" for="btn1">
             <div class="fa fa-calendar"></div>
             <div class="menu_text">
-                30.04
+                Sterownik
             </div>
         </label>
         <input class="menu_input" id="btn2" name="menu" type="radio"/>
         <label class="menu_label" for="btn2">
             <div class="fa fa-clock"></div>
             <div class="menu_text">
-                11:25
+                Harmonogram
             </div>
         </label>
         <input class="menu_input" id="btn3" name="menu" type="radio"/>
         <label class="menu_label" for="btn3">
             <div class="fa fa-cog"></div>
             <div class="menu_text">
-                LINIE
+                Linie nawadni.
             </div>
         </label>
+
+        <div style="position: absolute;right: 5px;top: 0;">
+            <label class="menu_label status-icon">
+                <i class="fa fa-solid fa-plug-circle-bolt"></i>
+            </label>
+        </div>
     </div>
 
-    <div style="margin-top: 1em" class="irrigation-lines"></div>
+    <div class="ui-section ui-section-1">
+        <div style="margin-top: 1em" class="irrigation-lines"></div>
+        <div style="margin-top: 1em">
+            <button style="width:100%" data-state="disabled" class="button-85 pump-button" role="button">Rozpocznij nawadnianie</button>
+        </div>
+    </div>
 
+    <div class="ui-section ui-section-3 invisible lines-configurator">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa</th>
+                    <th>Opcje</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+        <button class="button-85 add-irrigation-line-button">Dodaj nową linie nawadniającą</button>
+    </div>
+
+    <div class="console">> Łączenie do sterownika...</div>
 </body>
+<script src="/ui/uicontrolling.js"></script>
 <script src="/ui/irrigationlines.js"></script>
+<script src="/ui/wsclient.js"></script>
+<script src="/ui/menu.js"></script>
+<script src="/ui/lib/fontawesome/js/all.min.js"></script>
 </html>

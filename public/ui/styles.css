@@ -4,7 +4,7 @@
     background-color: #77b11c;
     background-repeat: no-repeat;
 }
-.btn-bubble:hover, .btn-bubble:focus {
+.btn-bubble-animating {
     -webkit-animation: bubbles 1s forwards ease-out;
     animation: bubbles 1s forwards ease-out;
     background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 55% 111% / 1.1em 1.1em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 52% 120% / 0.75em 0.75em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 103% 101% / 1.14em 1.14em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 77% 144% / 0.67em 0.67em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 84% 120% / 0.97em 0.97em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 20% 136% / 0.87em 0.87em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 109% 90% / 0.76em 0.76em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 44% 127% / 1.02em 1.02em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 44% 140% / 1.12em 1.12em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) 105% 132% / 0.83em 0.83em, radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, #eeeeff 60%, #eeeeff 65%, rgba(0, 0, 0, 0) 70%) -7% 90% / 0.95em 0.95em;
@@ -14,6 +14,7 @@
 
 .btn-bubble-active {
     background-color: #0072c4;
+    color: white;
 }
 
 @-webkit-keyframes bubbles {
@@ -34,6 +35,76 @@
     display: inline-block;
     text-decoration: none;
     padding: 1em 2em;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/* Pump button */
+.button-85 {
+   padding: 0.6em 2em;
+   border: none;
+   outline: none;
+   color: rgb(255, 255, 255);
+   background: #111;
+   cursor: pointer;
+   position: relative;
+   z-index: 0;
+   border-radius: 10px;
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+}
+
+.button-85-animating:before {
+    content: "";
+    background: linear-gradient(
+            45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.button-85-animating:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
 }
 
 /* Menu */
@@ -44,6 +115,7 @@
     background: linear-gradient(135deg, #9a0dfe, #637dfb);
     box-shadow: 0 2px 12px 0 rgba(91, 41, 191, 0.5);
     border-radius: 4px;
+    height: 30px;
 }
 
 .fa {
@@ -105,7 +177,6 @@
     text-transform: uppercase;
     color: #fff;
     width: 44px;
-    overflow: hidden;
     display: flex;
     padding: 0 10px;
     border-radius: 4px;
@@ -115,6 +186,7 @@
     -o-transition: all 0.3s;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
+    align-items: center;
 }
 .menu_label:hover .fa {
     opacity: 1;
@@ -133,7 +205,7 @@
 }
 .menu_input[type=radio]:checked + .menu_label {
     background-color: rgba(255, 255, 255, 0.3);
-    width: 112px;
+    width: 270px;
 }
 .menu_input[type=radio]:checked + .menu_label .fa {
     opacity: 1;
@@ -152,6 +224,65 @@
 
 /* Global */
 body {
-    background: #10192d;
-    min-height: 100vh;
+    background: #232644;
+    min-height: 96vh;
+}
+
+.invisible {
+    display: none !important;
+}
+
+.status-icon {
+    padding: 5px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    top: 5px;
+    width: auto;
+}
+
+.fa-plug-circle-xmark {
+    color: red;
+}
+
+.fa-plug-circle-check {
+    color: green;
+}
+
+.fa-plug-circle-bolt {
+    color: black;
+}
+
+.console {
+    position: absolute;
+    bottom: 0;
+    background: black;
+    color: white;
+    left: 0;
+    width: 100%;
+    padding: 2px;
+    box-sizing: border-box;
+    height: 100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.lines-configurator {
+    color: white;
+    margin-top: 1em;
+    font-size: 2em;
+}
+
+.lines-configurator table {
+    border-collapse: collapse;
+}
+
+.lines-configurator table tr th, .lines-configurator table tr td {
+    border: 1px solid white;
+    padding: 3px;
+}
+
+.save-irrigation-line-button {
+    margin-right: 1em;
 }
