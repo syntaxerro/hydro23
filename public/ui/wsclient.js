@@ -9,7 +9,7 @@ let interval = setInterval(function() {
             showInConsole('> ' + json);
         }
 
-        let socket = new WebSocket(location.href.replace('http', 'ws').replace(':4343', ':9191').slice(0, -1));
+        let socket = new WebSocket(location.href.replace('http', 'ws').replace('/ui', '').slice(0, -1) + ':9191');
         socket.onopen = function (event) {
             showInConsole('* Connected to WS server *');
             changeConnectionStatusIcon('fa-solid fa-plug-circle-check');

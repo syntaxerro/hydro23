@@ -30,6 +30,6 @@ class GPIO
 
     public function enableGpioChannel(int $channel): void
     {
-        $this->runner->runProcessSync('echo ' . $channel . ' > ' . $this->config->path . 'export');
+        $this->runner->runProcessSync('echo ' . $channel . ' > ' . $this->config->path . 'export', true);
     }
 }

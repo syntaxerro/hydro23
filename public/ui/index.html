@@ -15,7 +15,7 @@
         <label class="menu_label" for="btn1">
             <div class="fa fa-calendar"></div>
             <div class="menu_text">
-                Sterownik
+                Panel sterujący
             </div>
         </label>
         <input class="menu_input" id="btn2" name="menu" type="radio"/>
@@ -43,20 +43,21 @@
     <div class="ui-section ui-section-1">
         <div style="margin-top: 1em" class="irrigation-lines"></div>
         <div style="margin-top: 1em">
-            <button style="width:100%" data-state="disabled" class="button-85 pump-button" role="button">Rozpocznij nawadnianie</button>
+            <button style="width:100%;font-size: 2.2em;" data-state="disabled" class="button-85 pump-button" role="button">Rozpocznij nawadnianie</button>
         </div>
     </div>
 
-    <div class="ui-section ui-section-3 invisible lines-configurator">
+    <div class="ui-section ui-section-2 invisible scheduler">
         <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nazwa</th>
-                    <th>Opcje</th>
-                </tr>
-            </thead>
+            <thead><tr><th>ID</th><th>Linia</th><th>Godzina</th><th>Dzień</th><th>Czas podlewania</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        <button class="button-85 add-schedule-button">Dodaj pozycje harmonogramu</button>
+    </div>
 
+    <div class="ui-section ui-section-3 invisible lines-configurator" style="overflow-y: scroll;height: 310px;">
+        <table>
+            <thead><tr><th>ID</th><th>Nazwa</th><th>Opcje</th></tr></thead>
             <tbody></tbody>
         </table>
         <button class="button-85 add-irrigation-line-button">Dodaj nową linie nawadniającą</button>
@@ -64,6 +65,7 @@
 
     <div class="console">Connecting to driver...</div>
 </body>
+
 <script src="/ui/uicontrolling.js"></script>
 <script src="/ui/irrigationlines.js"></script>
 <script src="/ui/eventstorming.js"></script>

@@ -6,7 +6,7 @@ use React\ChildProcess\Process;
 
 class ProcessRunner
 {
-    public function runProcessSync(string $cmd): string
+    public function runProcessSync(string $cmd, bool $ignoreErrors = false): string
     {
         $proc = $this->runProcessAsync($cmd);
         $proc->on('data', function($chunk) use(&$output) {
@@ -16,7 +16,8 @@ class ProcessRunner
         while ($proc->isRunning()) {
             // wait
         }
-        if ($proc->getExitCode() > 0) {
+
+        if ($proc->getExitCode() > 0 && !$ignoreErrors) {
             throw new \RuntimeException($cmd.PHP_EOL.$output);
         }
         return $output;
