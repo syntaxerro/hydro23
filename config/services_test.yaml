@@ -13,6 +13,7 @@ services:
 
   # Repositories replacement
   App\Domain\Repository\IrrigationLineRepositoryInterface: '@App\Tests\Doubles\Repository\IrrigationLineInMemoryRepository'
+  App\Domain\Repository\ScheduleRepositoryInterface: '@App\Tests\Doubles\Repository\ScheduleInMemoryRepository'
 
   # Infrastructure
   App\Infrastructure\Hardware\GPIO:
@@ -26,3 +27,7 @@ services:
   App\Infrastructure\Repository\IrrigationLineJsonFileRepository:
     public: true
     class: App\Infrastructure\Repository\IrrigationLineJsonFileRepository
+
+  App\Infrastructure\Repository\ScheduleJsonFileRepository:
+    public: true
+    class: App\Infrastructure\Repository\ScheduleJsonFileRepository
