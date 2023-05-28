@@ -9,11 +9,12 @@ use App\Tests\TestTemplate\IrrigationLineRepositoryTestTemplate;
 class IrrigationLineInMemoryRepositoryTest extends IrrigationLineRepositoryTestTemplate
 {
     private IrrigationLineInMemoryRepository $repository;
+
     protected function setUp(): void
     {
         parent::setUp();
         self::bootKernel();
-        $this->repository = self::getContainer()->get(IrrigationLineInMemoryRepository::class);
+        $this->repository = self::getContainer()->get(IrrigationLineRepositoryInterface::class);
     }
 
     protected function repository(): IrrigationLineRepositoryInterface

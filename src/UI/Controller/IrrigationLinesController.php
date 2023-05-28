@@ -7,7 +7,6 @@ use App\Domain\Query\ValveStateQuery;
 use App\Native\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IrrigationLinesController extends AbstractController

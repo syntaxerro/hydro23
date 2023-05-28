@@ -6,7 +6,17 @@ trait JsonDeserializableEntityTrait
 {
     public static function fromArray(array $array): static
     {
-        $constructorParams = array_values($array);
-        return new static(...$constructorParams);
+        $constructorValues = [];
+
+        $ref = new \ReflectionClass(static::class);
+        $constructorParams = $ref->getConstructor()->getParameters();
+        foreach ($constructorParams as $constructorParam) {
+            foreach ($array as $key => $value) {
+                if ($key == $constructorParam->getName()) {
+                    $constructorValues[] = $value;
+                }
+            }
+        }
+        return new static(...$constructorValues);
     }
 }

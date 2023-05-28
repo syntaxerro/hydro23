@@ -54,7 +54,7 @@ class JsonFileRepository
         $result = [];
         $json = file_get_contents($this->filePath);
         foreach (json_decode($json, true) as $entry) {
-            $result[] = call_user_func_array($this->entityClass.'::fromArray', [array_values($entry)]);
+            $result[] = call_user_func_array($this->entityClass.'::fromArray', [$entry]);
         }
         return $result;
     }

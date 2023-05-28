@@ -1,0 +1,23 @@
+@media only screen and (max-device-width: 640px) {
+    .menu {
+        display: none;
+    }
+
+    .ui-section-1 {
+        font-size: 1.9em;
+    }
+
+    .console {
+        font-size: 1.5em;
+        height: 600px;
+        line-break: anywhere;
+    }
+
+    .irrigation-line-valve-button {
+        margin: 10px !important;
+    }
+
+    .irrigation-lines {
+        flex-flow: column;
+    }
+}
