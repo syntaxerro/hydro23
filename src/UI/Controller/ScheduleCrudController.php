@@ -16,7 +16,7 @@ class ScheduleCrudController extends AbstractController
     {
     }
 
-    #[Route("/schedule", methods: ["PUT"])]
+    #[Route("/schedule/", methods: ["PUT"])]
     public function addSchedule(Request $request): Response
     {
         $rawRequest = json_decode($request->getContent(), true);

@@ -269,17 +269,19 @@ body {
     overflow-x: hidden;
 }
 
-.lines-configurator {
+.crud-section {
+    overflow-y: scroll;
+    height: 310px;
     color: white;
     margin-top: 1em;
     font-size: 2em;
 }
 
-.lines-configurator table {
+.crud-section table {
     border-collapse: collapse;
 }
 
-.lines-configurator table tr th, .lines-configurator table tr td {
+.crud-section table tr th, .crud-section table tr td {
     border: 1px solid white;
     padding: 3px;
 }
