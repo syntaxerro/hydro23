@@ -4,7 +4,7 @@ namespace App\UI\Controller;
 
 use App\Domain\Query\IrrigationLinesQuery;
 use App\Domain\Query\ValveStateQuery;
-use App\Native\QueryBus;
+use App\Infrastructure\MessageBus\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;

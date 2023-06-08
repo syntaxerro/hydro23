@@ -4,15 +4,15 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\IrrigationLine;
 use App\Domain\Repository\IrrigationLineRepositoryInterface;
-use App\Native\Repository\JsonFileRepository;
+use App\Infrastructure\Repository\GenericJsonFileRepository;
 
 class IrrigationLineJsonFileRepository implements IrrigationLineRepositoryInterface
 {
-    private readonly JsonFileRepository $nativeRepository;
+    private readonly GenericJsonFileRepository $nativeRepository;
 
     public function __construct()
     {
-        $this->nativeRepository = new JsonFileRepository(IrrigationLine::class, 'identifier');
+        $this->nativeRepository = new GenericJsonFileRepository(IrrigationLine::class, 'identifier');
     }
 
     public function save(IrrigationLine $irrigationLine): void

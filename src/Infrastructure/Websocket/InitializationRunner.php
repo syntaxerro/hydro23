@@ -4,6 +4,7 @@ namespace App\Infrastructure\Websocket;
 
 use App\Domain\Service\Initializer;
 use App\UI\CommandOutput;
+use App\UI\Job\SchedulerJob;
 use React\EventLoop\LoopInterface;
 
 class InitializationRunner
@@ -12,7 +13,8 @@ class InitializationRunner
 
     public function __construct(
         private readonly LoopInterface $loop,
-        private readonly Initializer $initializer
+        private readonly Initializer $initializer,
+        private readonly SchedulerJob $schedulerJob
     ) {
     }
 
@@ -24,6 +26,10 @@ class InitializationRunner
 
             $pumpIdentifier = $this->initializer->initPump();
             CommandOutput::writeln('Initialized pump on channel: ' . $pumpIdentifier);
+        });
+
+        $this->loop->addPeriodicTimer($this->schedulerJob->getInterval(), function() {
+            $this->schedulerJob->run();
         });
     }
 }

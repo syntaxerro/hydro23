@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Native\Entity;
+namespace App\Infrastructure\Entity;
 
 trait JsonSerializableEntityTrait
 {

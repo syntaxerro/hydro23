@@ -28,6 +28,7 @@ services:
     # Domain
     App\Domain\ValvesInterface: '@App\Infrastructure\Hardware\HardwareValves'
     App\Domain\PumpInterface: '@App\Infrastructure\Hardware\HardwarePump'
+    App\Domain\ClockInterface: '@App\Infrastructure\Hardware\SystemClock'
 
     App\Domain\Service\ValvesControlling:
         class: App\Domain\Service\ValvesControlling

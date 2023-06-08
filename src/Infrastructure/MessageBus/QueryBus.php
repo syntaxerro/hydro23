@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Native;
+namespace App\Infrastructure\MessageBus;
 
 use App\Domain\Messages\QueryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;

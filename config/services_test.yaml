@@ -10,6 +10,7 @@ services:
   # Domain
   App\Domain\ValvesInterface: '@App\Tests\Doubles\ValvesInMemory'
   App\Domain\PumpInterface: '@App\Tests\Doubles\PumpInMemory'
+  App\Domain\ClockInterface: '@App\Tests\Doubles\Clock\AdjustableClock'
 
   # Repositories replacement
   App\Domain\Repository\IrrigationLineRepositoryInterface: '@App\Tests\Doubles\Repository\IrrigationLineInMemoryRepository'

@@ -31,7 +31,7 @@ abstract class ScheduleRepositoryTestTemplate extends KernelTestCase
         $givenIdentifier = uniqid(uniqid());
 
         // when
-        $this->save(new Schedule(1, '18:00', 'everyday', '5s', $givenIdentifier));
+        $this->save(new Schedule(1, '18:00', 0, '5s', $givenIdentifier));
 
         // then
         $line = $this->repository()->get($givenIdentifier);
@@ -43,7 +43,7 @@ abstract class ScheduleRepositoryTestTemplate extends KernelTestCase
     public function add_and_delete_by_identifier(): void
     {
         // given
-        $givenSchedule = new Schedule(1, '18:00', 'everyday', '5s');
+        $givenSchedule = new Schedule(1, '18:00', 0, '5s');
         $this->save($givenSchedule);
 
         // when
@@ -58,7 +58,7 @@ abstract class ScheduleRepositoryTestTemplate extends KernelTestCase
     public function find_all(): void
     {
         // given
-        $givenSchedule = new Schedule(1, '18:00', 'everyday', '5s');
+        $givenSchedule = new Schedule(1, '18:00', 0, '5s');
         $this->save($givenSchedule);
 
         // when
@@ -73,8 +73,8 @@ abstract class ScheduleRepositoryTestTemplate extends KernelTestCase
     {
         // given
         $givenIrrigationLineId = 1;
-        $this->save(new Schedule($givenIrrigationLineId, '18:00', 'monday', '5s'));
-        $this->save(new Schedule($givenIrrigationLineId, '18:00', 'tuesday', '5s'));
+        $this->save(new Schedule($givenIrrigationLineId, '18:00', -1, '5s'));
+        $this->save(new Schedule($givenIrrigationLineId, '18:00', -1, '5s'));
 
         // when
         $result = $this->repository()->findByIrrigationLine($givenIrrigationLineId);

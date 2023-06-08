@@ -2,8 +2,8 @@
 
 namespace App\Domain\Entity;
 
-use App\Native\Entity\JsonDeserializableEntityTrait;
-use App\Native\Entity\JsonSerializableEntityTrait;
+use App\Infrastructure\Entity\JsonDeserializableEntityTrait;
+use App\Infrastructure\Entity\JsonSerializableEntityTrait;
 use JsonSerializable;
 
 class IrrigationLine implements JsonSerializable

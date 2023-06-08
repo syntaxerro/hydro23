@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Native\Repository;
+namespace App\Infrastructure\Repository;
 
 class JsonFileRepositoryException extends \Exception
 {

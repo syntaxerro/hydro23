@@ -16,6 +16,9 @@ class ScheduleJsonFileRepositoryTest extends ScheduleRepositoryTestTemplate
         parent::setUp();
         self::bootKernel();
         $this->repository = self::getContainer()->get(ScheduleJsonFileRepository::class);
+        foreach($this->repository()->findAll() as $item) {
+            $this->repository()->delete($item);
+        }
     }
 
     protected function repository(): ScheduleRepositoryInterface

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Native\Repository;
+namespace App\Infrastructure\Repository;
 
 use JsonSerializable;
 
-class JsonFileRepository
+class GenericJsonFileRepository
 {
     const FILE_PATH_PATTERN = __DIR__ . '/../../../var/repository/%s.json';
 

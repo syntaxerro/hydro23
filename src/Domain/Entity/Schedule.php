@@ -2,8 +2,9 @@
 
 namespace App\Domain\Entity;
 
-use App\Native\Entity\JsonDeserializableEntityTrait;
-use App\Native\Entity\JsonSerializableEntityTrait;
+use App\Domain\Entity\Enum\DayOfWeekEnum;
+use App\Infrastructure\Entity\JsonDeserializableEntityTrait;
+use App\Infrastructure\Entity\JsonSerializableEntityTrait;
 use JsonSerializable;
 
 class Schedule implements JsonSerializable
@@ -16,7 +17,7 @@ class Schedule implements JsonSerializable
     public function __construct(
         private int    $irrigationLineIdentifier,
         private string $startAt,
-        private string $dayOfWeek,
+        private int $dayOfWeek,
         private string $irrigationTime,
         ?string        $id = null
     ) {
@@ -33,9 +34,9 @@ class Schedule implements JsonSerializable
         return $this->startAt;
     }
 
-    public function getDayOfWeek(): string
+    public function getDayOfWeek(): DayOfWeekEnum
     {
-        return $this->dayOfWeek;
+        return DayOfWeekEnum::tryFrom($this->dayOfWeek);
     }
 
     public function getIrrigationTime(): string
@@ -58,7 +59,7 @@ class Schedule implements JsonSerializable
         $this->startAt = $startAt;
     }
 
-    public function setDayOfWeek(string $dayOfWeek): void
+    public function setDayOfWeek(int $dayOfWeek): void
     {
         $this->dayOfWeek = $dayOfWeek;
     }

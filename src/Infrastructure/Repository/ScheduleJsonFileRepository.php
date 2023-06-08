@@ -4,15 +4,15 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\Schedule;
 use App\Domain\Repository\ScheduleRepositoryInterface;
-use App\Native\Repository\JsonFileRepository;
+use App\Infrastructure\Repository\GenericJsonFileRepository;
 
 class ScheduleJsonFileRepository implements ScheduleRepositoryInterface
 {
-    private readonly JsonFileRepository $nativeRepository;
+    private readonly GenericJsonFileRepository $nativeRepository;
 
     public function __construct()
     {
-        $this->nativeRepository = new JsonFileRepository(Schedule::class, 'id');
+        $this->nativeRepository = new GenericJsonFileRepository(Schedule::class, 'id');
     }
 
     public function save(Schedule $schedule): void
