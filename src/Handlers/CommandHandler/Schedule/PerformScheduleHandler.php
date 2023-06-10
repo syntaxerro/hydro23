@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Handlers\CommandHandler;
+namespace App\Handlers\CommandHandler\Schedule;
 
-use App\Domain\Command\PerformScheduleCommand;
+use App\Domain\Command\Schedule\PerformScheduleCommand;
 use App\Domain\Command\Pump\EnablePumpCommand;
 use App\Domain\Command\TurnTheValveCommand;
 use App\Domain\PumpInterface;

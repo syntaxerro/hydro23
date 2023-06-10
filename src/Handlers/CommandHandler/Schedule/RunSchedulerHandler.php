@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Handlers\CommandHandler;
+namespace App\Handlers\CommandHandler\Schedule;
 
-use App\Domain\ClockInterface;
-use App\Domain\Command\PerformScheduleCommand;
-use App\Domain\Command\RunSchedulerCommand;
+use App\Domain\Command\Schedule\PerformScheduleCommand;
+use App\Domain\Command\Schedule\RunSchedulerCommand;
 use App\Domain\Entity\Schedule;
 use App\Domain\Repository\ScheduleRepositoryInterface;
 use App\Domain\Service\Scheduler\DayOfWeekHandler;
 use App\Domain\Service\Scheduler\IrrigationLineHandler;
-use App\Domain\Service\Scheduler\Performer\SchedulePerformerInterface;
 use App\Domain\Service\Scheduler\StartAtHandler;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsMessageHandler]
-class RunSchedulerHandler
+class
+RunSchedulerHandler
 {
     public function __construct(
         private readonly ScheduleRepositoryInterface $scheduleRepository,

@@ -4,10 +4,12 @@ namespace App\Tests\Common;
 
 use App\Domain\Command\IrrigationLine\SetIrrigationLineCommand;
 use App\Domain\Entity\IrrigationLine;
+use App\Domain\Entity\Schedule;
 use App\Domain\Messages\CommandInterface;
 use App\Domain\Messages\EventInterface;
 use App\Domain\Messages\QueryInterface;
 use App\Domain\Command\TurnTheValveCommand;
+use App\Domain\Repository\ScheduleRepositoryInterface;
 use App\Domain\Service\Initializer;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,5 +51,16 @@ abstract class UnitTestCase extends KernelTestCase
             $this->dispatchMessage(new SetIrrigationLineCommand('line ' . $identifier, $identifier));
         }
         $this->initIrrigationSystem();
+    }
+
+    protected function giveSchedule(Schedule $schedule): void
+    {
+        $repository = $this->container->get(ScheduleRepositoryInterface::class);
+        $repository->save($schedule);
+    }
+
+    protected function wait(int $seconds): void
+    {
+        sleep($seconds);
     }
 }

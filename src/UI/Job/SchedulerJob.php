@@ -2,7 +2,7 @@
 
 namespace App\UI\Job;
 
-use App\Domain\Command\RunSchedulerCommand;
+use App\Domain\Command\Schedule\RunSchedulerCommand;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class SchedulerJob
