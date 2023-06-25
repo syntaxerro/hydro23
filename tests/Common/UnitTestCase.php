@@ -8,9 +8,9 @@ use App\Domain\Entity\Schedule;
 use App\Domain\Messages\CommandInterface;
 use App\Domain\Messages\EventInterface;
 use App\Domain\Messages\QueryInterface;
-use App\Domain\Command\TurnTheValveCommand;
 use App\Domain\Repository\ScheduleRepositoryInterface;
 use App\Domain\Service\Initializer;
+use App\Tests\Doubles\Clock\TimeMachine;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -22,6 +22,7 @@ abstract class UnitTestCase extends KernelTestCase
 
     protected ContainerInterface $container;
     protected MessageBusInterface $messageBus;
+    protected TimeMachine $timeMachine;
 
     protected function setUp(): void
     {
@@ -30,6 +31,8 @@ abstract class UnitTestCase extends KernelTestCase
         $this->container = self::getContainer();
         $this->messageBus = $this->container->get(MessageBusInterface::class);
         $this->initIrrigationSystem();
+
+        $this->timeMachine = $this->container->get(TimeMachine::class);
     }
 
     private function initIrrigationSystem(): void
@@ -57,10 +60,5 @@ abstract class UnitTestCase extends KernelTestCase
     {
         $repository = $this->container->get(ScheduleRepositoryInterface::class);
         $repository->save($schedule);
-    }
-
-    protected function wait(int $seconds): void
-    {
-        sleep($seconds);
     }
 }

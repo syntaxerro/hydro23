@@ -14,11 +14,11 @@ class SchedulerJob
 
     public function getInterval(): int
     {
-        return 30; // seconds;
+        return 60; // seconds;
     }
 
     public function run(): void
     {
-        //$this->messageBus->dispatch(new RunSchedulerCommand());
+        $this->messageBus->dispatch(new RunSchedulerCommand());
     }
 }

@@ -46,7 +46,6 @@ class IrrigationTest extends AcceptanceTestCase
         $this->turnTheValves([1, 2, 3, 4], ValveStateMother::off);
 
         // then
-        $this->readFromWebsocket();
         $this->assertPumpingStopped();
     }
 
@@ -65,16 +64,6 @@ class IrrigationTest extends AcceptanceTestCase
 
         // then
         $this->assertPumpingStopped();
-    }
-
-    private function giveIrrigationLines(array $valvesIdentifiers): void
-    {
-        foreach ($valvesIdentifiers as $identifier) {
-            $this->sendToWebsocket(new WebsocketIncomingMessage(CommandsMother::SetIrrigationLine, [
-                'name' => 'line ' . $identifier,
-                'identifier' => $identifier
-            ]));
-        }
     }
 
     private function turnTheValves(array $valvesIdentifiers, bool $valveOpen): void

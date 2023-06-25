@@ -13,8 +13,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsMessageHandler]
-class
-RunSchedulerHandler
+class RunSchedulerHandler
 {
     public function __construct(
         private readonly ScheduleRepositoryInterface $scheduleRepository,
@@ -47,6 +46,7 @@ RunSchedulerHandler
 
     private function scheduleShouldBePerformed(Schedule $schedule): bool
     {
-        return $this->dayOfWeekHandler->handle($schedule) !== null;
+        $handled = $this->dayOfWeekHandler->handle($schedule);
+        return $handled !== null;
     }
 }

@@ -15,7 +15,10 @@ abstract class AbstractChainHandler
 
     public function next(Schedule $schedule): ?Schedule
     {
-        $this->next?->handle($schedule);
-        return $schedule;
+        if ($this->next === null) {
+            return $schedule;
+        }
+
+        return $this->next->handle($schedule);
     }
 }

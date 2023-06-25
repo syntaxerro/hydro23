@@ -3,7 +3,6 @@
 namespace App\Tests\Unit\Commands\Schedule;
 
 use App\Domain\Command\Schedule\PerformScheduleCommand;
-use App\Domain\Event\PumpDisabledEvent;
 use App\Domain\Event\PumpEnabledEvent;
 use App\Domain\Event\ValveStateChangedEvent;
 use App\Tests\Common\UnitTestCase;

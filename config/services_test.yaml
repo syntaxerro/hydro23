@@ -10,7 +10,15 @@ services:
   # Domain
   App\Domain\ValvesInterface: '@App\Tests\Doubles\ValvesInMemory'
   App\Domain\PumpInterface: '@App\Tests\Doubles\PumpInMemory'
-  App\Domain\ClockInterface: '@App\Tests\Doubles\Clock\AdjustableClock'
+
+  # Clock
+  App\Domain\ClockInterface:
+    class: App\Tests\Doubles\Clock\AdjustableClock
+    arguments:
+      $timeMachine: '@App\Tests\Doubles\Clock\TimeMachine'
+  App\Tests\Doubles\Clock\TimeMachine:
+    public: true
+    class: App\Tests\Doubles\Clock\TimeMachine
 
   # Repositories replacement
   App\Domain\Repository\IrrigationLineRepositoryInterface: '@App\Tests\Doubles\Repository\IrrigationLineInMemoryRepository'

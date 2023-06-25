@@ -42,6 +42,8 @@ abstract class AcceptanceTestCase extends TestCase
 
     protected function assertIsPumping(): void
     {
+        $this->readFromWebsocket();
+
         $lastPumpEvent = null;
         foreach ($this->receivedMessageViaWebsocket as $event) {
             if ($event['eventName'] == EventsMother::PumpEnabled || $event['eventName'] == EventsMother::PumpDisabled) {
@@ -53,6 +55,8 @@ abstract class AcceptanceTestCase extends TestCase
 
     protected function assertPumpingStopped(): void
     {
+        $this->readFromWebsocket();
+
         $lastPumpEvent = null;
         foreach ($this->receivedMessageViaWebsocket as $event) {
             if ($event['eventName'] == EventsMother::PumpEnabled || $event['eventName'] == EventsMother::PumpDisabled) {
@@ -100,7 +104,17 @@ abstract class AcceptanceTestCase extends TestCase
         ], $lastValveEvent);
     }
 
-    protected function readFromWebsocket(): void
+    protected function giveIrrigationLines(array $valvesIdentifiers): void
+    {
+        foreach ($valvesIdentifiers as $identifier) {
+            $this->sendToWebsocket(new WebsocketIncomingMessage(CommandsMother::SetIrrigationLine, [
+                'name' => 'line ' . $identifier,
+                'identifier' => $identifier
+            ]));
+        }
+    }
+
+    private function readFromWebsocket(): void
     {
         try {
             $eventJson = $this->websocketClient->receive();
